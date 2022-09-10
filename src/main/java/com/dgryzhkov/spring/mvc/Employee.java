@@ -1,5 +1,7 @@
 package com.dgryzhkov.spring.mvc;
 
+import com.dgryzhkov.spring.mvc.validation.CheckEmail;
+
 import javax.validation.constraints.*;
 import java.util.HashMap;
 import java.util.Map;
@@ -8,7 +10,7 @@ import java.util.Map;
  * @author Dgryzhkov
  */
 public class Employee {
-    @Size(min =2, message = "name must be min 2 symbols")
+    @Size(min = 2, message = "name must be min 2 symbols")
     private String name;
     @NotBlank(message = "surname is required field")
     private String surname;
@@ -20,12 +22,15 @@ public class Employee {
     private String carBrand;
     private Map<String, String> carBrands;
 
-    private  String[] languages;
+    private String[] languages;
 
     private Map<String, String> languageList;
 
     @Pattern(regexp = "\\d{3}-\\d{2}-\\d{2}", message = "please use pattern XXX-XX-XX")
     private String phoneNumber;
+
+    @CheckEmail(value = "abc.com", message = "email must ends with abc.com1500")
+    private String email;
 
 
     public Employee() {
@@ -35,15 +40,23 @@ public class Employee {
         departments.put("Sales", "Sales");
 
         carBrands = new HashMap<>();
-        carBrands.put("BMW","BMW");
-        carBrands.put("Audi","Audi");
-        carBrands.put("Mercedes-Benz","MB");
+        carBrands.put("BMW", "BMW");
+        carBrands.put("Audi", "Audi");
+        carBrands.put("Mercedes-Benz", "MB");
 
-        languageList=new HashMap<>();
+        languageList = new HashMap<>();
         languageList.put("English", "EN");
         languageList.put("Deutch", "DE");
         languageList.put("French", "FR");
 
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     public String getPhoneNumber() {
